@@ -1,5 +1,7 @@
 import re
 from os import environ
+import logging, json
+from uvloop import install
 
 id_pattern = re.compile(r'^.\d+$')
 def is_enabled(value, default):
@@ -9,6 +11,19 @@ def is_enabled(value, default):
         return False
     else:
         return default
+
+# Read the dictionary from the txt file
+with open("/content/TechMagazine-AutoFilterBot/credentials.json", "r") as file:
+    credentials = json.loads(file.read())
+
+API_ID = credentials["API_ID"]
+API_HASH = credentials["API_HASH"]
+BOT_TOKEN = credentials["BOT_TOKEN"]
+LOG_CHANNEL = credentials["LOG_CHANNEL"]
+INDEX_CHANNELS = credentials["INDEX_CHANNELS"]
+SUPPORT_GROUP = credentials["SUPPORT_GROUP"]
+AUTH_CHANNEL = credentials["AUTH_CHANNEL"]
+DATABASE_URI = credentials["DATABASE_URI"]
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
